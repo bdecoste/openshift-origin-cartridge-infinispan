@@ -7,5 +7,5 @@ esac
 
 mkdir -p ${OPENSHIFT_INFINISPAN_DIR}/template
 
-cp -r ${OPENSHIFT_INFINISPAN_DIR}/versions/${version}/apache-activemq ${OPENSHIFT_INFINISPAN_DIR}/apache-activemq
+cp -r ${OPENSHIFT_INFINISPAN_DIR}/versions/${version}/infinispan ${OPENSHIFT_INFINISPAN_DIR}/infinispan
 

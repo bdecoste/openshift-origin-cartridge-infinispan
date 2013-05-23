@@ -4,71 +4,21 @@ source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 INFINISPAN_BIN_DIR=${OPENSHIFT_INFINISPAN_DIR}/bin
 
-cartridge_type="activemq"
-version=5.8
-
-# Check if the server http port is up
-function ishttpup() {
-
-    let count=0
-    while [ ${count} -lt 24 ]
-    do
-        if /usr/sbin/lsof -P -n -i "@${OPENSHIFT_INFINISPAN_IP}:${OPENSHIFT_INFINISPAN_HTTP_PORT}" | grep "(LISTEN)" > /dev/null; then
-            echo "Found ${OPENSHIFT_INFINISPAN_IP}:${OPENSHIFT_INFINISPAN_HTTP_PORT} listening port"
-            return 0
-        fi
-        let count=${count}+1
-
-        sleep 2
-    done
-
-    return 1
-}
+cartridge_type="infinispan"
+version=5.3
 
 function build() {
-  echo "Building ActiveMQ"
+  echo "Building Infinispan"
 
 }
 
 function deploy() {
-  echo "Deploying ActiveMQ"
+  echo "Deploying Infinispan"
   
-}
-
-function copy_conf() {
-	# Create a link for each file in user config to server standalone/config
-	if [ -d ${OPENSHIFT_REPO_DIR}.openshift/config ]
-	then
-	  for f in ${OPENSHIFT_REPO_DIR}.openshift/config/*
-	  do
-	    target=$(basename $f)
-	    # Remove any target that is being overwritten
-	    if [ -e "${OPENSHIFT_INFINISPAN_DIR}/apache-activemq/conf/$target" ]
-	    then
-	       echo "Removing existing $target"
-	       rm -rf "${OPENSHIFT_INFINISPAN_DIR}/apache-activemq/conf/$target"
-	       cp ${OPENSHIFT_REPO_DIR}.openshift/config/$target ${OPENSHIFT_INFINISPAN_DIR}/apache-activemq/conf
-	    fi
-	  done
-	else
-		cp ${OPENSHIFT_INFINISPAN_DIR}/versions/${version}/apache-activemq/conf/* ${OPENSHIFT_INFINISPAN_DIR}/apache-activemq/conf
-	fi
-}
-
-function replace_envs() {
-	for f in ${OPENSHIFT_INFINISPAN_DIR}/apache-activemq/conf/*.xml
-	do
-		sed -i -e "s/\${env.OPENSHIFT_INFINISPAN_IP}/$OPENSHIFT_INFINISPAN_IP/g" \
-			$f
-	done
 }
 
 function start() {
   echo "Starting $cartridge_type cart"
-  
-  copy_conf
-  
-  replace_envs
     
   if marker_present "enable_jpda"
   then
@@ -79,8 +29,8 @@ function start() {
   if isrunning; then
       echo "Application is already running"
   else    
-    pushd ${OPENSHIFT_INFINISPAN_DIR}/apache-activemq
-    bin/activemq start > ${OPENSHIFT_TMP_DIR}/${cartridge_type}.log 2>&1 &
+    pushd ${OPENSHIFT_INFINISPAN_DIR}/infinispan
+    bin/startServer.sh -r memcached > ${OPENSHIFT_TMP_DIR}/${cartridge_type}.log 2>&1 &
     PROCESS_ID=$!
     popd
   fi
@@ -90,9 +40,6 @@ function start() {
 function stop() {
   	echo "Stopping $cartridge_type cart"
   
-	pushd ${OPENSHIFT_INFINISPAN_DIR}/apache-activemq
-		bin/activemq stop > ${OPENSHIFT_TMP_DIR}/${cartridge_type}.log 2>&1 &
-	popd
 }
 
 function restart() {
