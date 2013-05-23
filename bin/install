@@ -5,10 +5,10 @@ case "$1" in
     version="$2"
 esac
 
-cp -r ${OPENSHIFT_ACTIVEMQ_DIR}/versions/${version}/template/* ${OPENSHIFT_ACTIVEMQ_DIR}/template
-cp -r ${OPENSHIFT_ACTIVEMQ_DIR}/versions/${version}/template/.openshift ${OPENSHIFT_ACTIVEMQ_DIR}/template
-mkdir -p ${OPENSHIFT_ACTIVEMQ_DIR}/template/.openshift/config
-cp ${OPENSHIFT_ACTIVEMQ_DIR}/apache-activemq/conf/* ${OPENSHIFT_ACTIVEMQ_DIR}/template/.openshift/config
+cp -r ${OPENSHIFT_INFINISPAN_DIR}/versions/${version}/template/* ${OPENSHIFT_INFINISPAN_DIR}/template
+cp -r ${OPENSHIFT_INFINISPAN_DIR}/versions/${version}/template/.openshift ${OPENSHIFT_INFINISPAN_DIR}/template
+mkdir -p ${OPENSHIFT_INFINISPAN_DIR}/template/.openshift/config
+cp ${OPENSHIFT_INFINISPAN_DIR}/infinispan-server/conf/* ${OPENSHIFT_INFINISPAN_DIR}/template/.openshift/config
 
-echo "$version" > "$OPENSHIFT_ACTIVEMQ_DIR/env/OPENSHIFT_ACTIVEMQ_VERSION"
+echo "$version" > "$OPENSHIFT_INFINISPAN_DIR/env/OPENSHIFT_INFINISPAN_VERSION"
 
