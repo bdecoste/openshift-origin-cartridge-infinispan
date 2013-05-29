@@ -19,6 +19,34 @@ function deploy() {
   
 }
 
+function copy_conf() {
+	# Create a link for each file in user config to server standalone/config
+	if [ -d ${OPENSHIFT_REPO_DIR}.openshift/config ]
+	then
+	  for f in ${OPENSHIFT_REPO_DIR}.openshift/config/*
+	  do
+	    target=$(basename $f)
+	    # Remove any target that is being overwritten
+	    if [ -e "${OPENSHIFT_INFINISPAN_DIR}/infinispan/bin/$target" ]
+	    then
+	       echo "Removing existing $target"
+	       rm -rf "${OPENSHIFT_INFINISPAN_DIR}/infinispan/bin/*"
+	       cp ${OPENSHIFT_REPO_DIR}.openshift/infinispan/bin/* ${OPENSHIFT_INFINISPAN_DIR}/infinispan/bin
+	    fi
+	  done
+	else
+		cp ${OPENSHIFT_INFINISPAN_DIR}/versions/${version}/infinispan/bin/* ${OPENSHIFT_INFINISPAN_DIR}/infinispan/bin
+	fi
+}
+
+function replace_envs() {
+	for f in ${OPENSHIFT_INFINISPAN_DIR}/infinispan/bin/*.py
+	do
+		sed -i -e "s/\${env.OPENSHIFT_INFINISPAN_IP}/$OPENSHIFT_INFINISPAN_IP/g" \
+			$f
+	done
+}
+
 isrunning() {
     # Check for running app
     if [ -f "$AMQ_PID_FILE" ]; then
@@ -35,6 +63,10 @@ isrunning() {
 
 function start() {
   echo "Starting $cartridge_type cart"
+  
+  copy_conf
+  
+  replace_envs
     
   if marker_present "enable_jpda"
   then

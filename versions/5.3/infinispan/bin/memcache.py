@@ -1080,7 +1080,7 @@ class _Host(object):
 
 def _doctest():
     import doctest, memcache
-    servers = ["127.0.0.1:11211"]
+    servers = ["${env.OPENSHIFT_INFINISPAN_IP}:11211"]
     mc = Client(servers, debug=1)
     globs = {"mc": mc}
     return doctest.testmod(memcache, globs=globs)
@@ -1091,7 +1091,7 @@ if __name__ == "__main__":
     _doctest()
     print "Running tests:"
     print
-    serverList = [["127.0.0.1:11211"]]
+    serverList = [["${env.OPENSHIFT_INFINISPAN_IP}:11211"]]
     if '--do-unix' in sys.argv:
         serverList.append([os.path.join(os.getcwd(), 'memcached.socket')])
 
