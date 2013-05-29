@@ -1,5 +1,0 @@
-metadata/
-env/
-env/OPENSHIFT_INFINISPAN_LOG_DIR
-env/OPENSHIFT_INFINISPAN_VERSION
-template/
