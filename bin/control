@@ -7,7 +7,7 @@ INFINISPAN_BIN_DIR=${OPENSHIFT_INFINISPAN_DIR}/bin
 cartridge_type="infinispan"
 version=5.3
 
-AMQ_PID_FILE="${OPENSHIFT_ACTIVEMQ_DIR}/activemq.pid"
+AMQ_PID_FILE="/tmp/activemq.pid"
 
 function build() {
   echo "Building Infinispan"
