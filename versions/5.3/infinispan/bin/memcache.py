@@ -971,7 +971,7 @@ class _Host(object):
         else:
             self.family = socket.AF_INET
             self.ip = hostData['host']
-            self.port = int(hostData.get('port', 11211))
+            self.port = int(hostData.get('port', 7600))
             self.address = ( self.ip, self.port )
 
         self.deaduntil = 0
@@ -1080,7 +1080,7 @@ class _Host(object):
 
 def _doctest():
     import doctest, memcache
-    servers = ["${env.OPENSHIFT_INFINISPAN_IP}:11211"]
+    servers = ["${env.OPENSHIFT_INFINISPAN_IP}:7600"]
     mc = Client(servers, debug=1)
     globs = {"mc": mc}
     return doctest.testmod(memcache, globs=globs)
@@ -1091,7 +1091,7 @@ if __name__ == "__main__":
     _doctest()
     print "Running tests:"
     print
-    serverList = [["${env.OPENSHIFT_INFINISPAN_IP}:11211"]]
+    serverList = [["${env.OPENSHIFT_INFINISPAN_IP}:7600"]]
     if '--do-unix' in sys.argv:
         serverList.append([os.path.join(os.getcwd(), 'memcached.socket')])
 

@@ -44,7 +44,7 @@ import math
 import random
 import sys
 
-endpoints = ["${env.OPENSHIFT_INFINISPAN_IP}:11211"]
+endpoints = ["${env.OPENSHIFT_INFINISPAN_IP}:7600"]
 
 def connect():
   ipaddress = choose_random_endpoint()
