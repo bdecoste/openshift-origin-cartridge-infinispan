@@ -7,6 +7,8 @@ INFINISPAN_BIN_DIR=${OPENSHIFT_INFINISPAN_DIR}/bin
 cartridge_type="infinispan"
 version=5.3
 
+AMQ_PID_FILE="${OPENSHIFT_ACTIVEMQ_DIR}/activemq.pid"
+
 function build() {
   echo "Building Infinispan"
 
@@ -15,6 +17,20 @@ function build() {
 function deploy() {
   echo "Deploying Infinispan"
   
+}
+
+isrunning() {
+    # Check for running app
+    if [ -f "$AMQ_PID_FILE" ]; then
+      pid=$(cat $AMQ_PID_FILE);
+      running=`/bin/ps --no-headers --pid $pid`
+      if test -n "$running";
+      then
+        return 0
+      fi
+    fi
+    # not running
+    return 1
 }
 
 function start() {
@@ -30,8 +46,9 @@ function start() {
       echo "Application is already running"
   else    
     pushd ${OPENSHIFT_INFINISPAN_DIR}/infinispan
-    bin/startServer.sh -r memcached > ${OPENSHIFT_TMP_DIR}/${cartridge_type}.log 2>&1 &
-    PROCESS_ID=$!
+    	bin/startServer.sh -r memcached > ${OPENSHIFT_TMP_DIR}/${cartridge_type}.log 2>&1 &
+    	PROCESS_ID=$!
+    	echo $PROCESS_ID > $AMQ_PID_FILE
     popd
   fi
 }
