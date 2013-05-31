@@ -49,6 +49,7 @@ function replace_envs() {
 	for f in ${OPENSHIFT_INFINISPAN_DIR}/infinispan/bin/*
 	do
 		sed -i -e "s/\${env.OPENSHIFT_INFINISPAN_IP}/$OPENSHIFT_INFINISPAN_IP/g" \
+		       -e "s/\${env.OPENSHIFT_INFINISPAN_DIR}/$OPENSHIFT_INFINISPAN_DIR/g" \
 			$f
 	done
 }
@@ -84,7 +85,7 @@ function start() {
       echo "Application is already running"
   else    
     pushd ${OPENSHIFT_INFINISPAN_DIR}/infinispan
-    	bin/startServer.sh -r memcached -p 5445 -l ${OPENSHIFT_INFINISPAN_IP} -c bin/distributed-tcp.xml > ${OPENSHIFT_TMP_DIR}/${cartridge_type}.log 2>&1 &
+    	bin/startServer.sh -r memcached -p 5445 -l ${OPENSHIFT_INFINISPAN_IP} -c ${OPENSHIFT_INFINISPAN_DIR}/infinispan/bin/distributed-tcp.xml > ${OPENSHIFT_TMP_DIR}/${cartridge_type}.log 2>&1 &
     	PROCESS_ID=$!
     	echo $PROCESS_ID > $INFINISPAN_PID_FILE
     popd
