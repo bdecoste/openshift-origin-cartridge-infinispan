@@ -44,7 +44,7 @@
          oob_thread_pool.queue_max_size="100"
          oob_thread_pool.rejection_policy="discard"/>
          
-   <TCPPING timeout="30000" initial_hosts="${env.OPENSHIFT_INFINISPAN_IP}" port_range="0" num_initial_members="1" />
+   <TCPPING timeout="30000" initial_hosts="${env.OPENSHIFT_INFINISPAN_IP}[7600]" port_range="0" num_initial_members="1" />
 
     <MERGE2 max_interval="30000"
             min_interval="10000"/>
