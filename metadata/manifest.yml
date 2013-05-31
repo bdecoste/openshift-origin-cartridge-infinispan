@@ -11,10 +11,8 @@ Cartridge-Vendor: jboss
 Source-Url: https://github.com/bdecoste/openshift-origin-cartridge-infinispan.git
 Categories:
   - service
-  - web_framework
-  - apache
+  - embedded
   - java
-  - messaging
 Website: http://www.jboss.org/infinispan
 Help-Topics:
   "Developer Center": https://www.openshift.com/developers
