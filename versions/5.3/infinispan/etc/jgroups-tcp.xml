@@ -21,7 +21,7 @@
          thread_naming_pattern="cl"
          
          external_addr="${env.OPENSHIFT_GEAR_DNS}"
-         external_port="${env.OPENSHIFT_JBOSSAS_CLUSTER_PROXY_PORT}"
+         external_port="${env.OPENSHIFT_INFINISPAN_CLUSTER_PROXY_PORT}"
 
          timer_type="new"
          timer.min_threads="4"
