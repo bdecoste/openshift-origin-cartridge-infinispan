@@ -46,7 +46,7 @@ function replace_envs() {
 			$f
 	done
 	
-	for f in ${OPENSHIFT_INFINISPAN_DIR}/infinispan/etc/*
+	for f in ${OPENSHIFT_INFINISPAN_DIR}/infinispan/etc/*.xml
 	do
 		sed -i -e "s/\${env.OPENSHIFT_INFINISPAN_IP}/$OPENSHIFT_INFINISPAN_IP/g" \
 			$f
