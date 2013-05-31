@@ -7,7 +7,7 @@ INFINISPAN_BIN_DIR=${OPENSHIFT_INFINISPAN_DIR}/bin
 cartridge_type="infinispan"
 version=5.3
 
-AMQ_PID_FILE="/tmp/activemq.pid"
+INFINISPAN_PID_FILE="/tmp/infinispan.pid"
 
 function build() {
   echo "Building Infinispan"
@@ -55,8 +55,8 @@ function replace_envs() {
 
 isrunning() {
     # Check for running app
-    if [ -f "$AMQ_PID_FILE" ]; then
-      pid=$(cat $AMQ_PID_FILE);
+    if [ -f "$INFINISPAN_PID_FILE" ]; then
+      pid=$(cat $INFINISPAN_PID_FILE);
       running=`/bin/ps --no-headers --pid $pid`
       if test -n "$running";
       then
@@ -86,7 +86,7 @@ function start() {
     pushd ${OPENSHIFT_INFINISPAN_DIR}/infinispan
     	bin/startServer.sh -r memcached -p 5445 -l ${OPENSHIFT_INFINISPAN_IP} -c bin/distributed-tcp.xml > ${OPENSHIFT_TMP_DIR}/${cartridge_type}.log 2>&1 &
     	PROCESS_ID=$!
-    	echo $PROCESS_ID > $AMQ_PID_FILE
+    	echo $PROCESS_ID > $INFINISPAN_PID_FILE
     popd
   fi
 }
@@ -94,6 +94,16 @@ function start() {
 
 function stop() {
   	echo "Stopping $cartridge_type cart"
+  	
+  	if isrunning; then
+    	if [ -f "$INFINISPAN_PID_FILE" ]; then
+      		pid=$(cat $INFINISPAN_PID_FILE);
+      		echo "Sending SIGTERM to infinispan:$pid ..." 1>&2
+      		kill -9 $pid
+    	else
+      		echo "Failed to locate INFINISPAN PID File" 1>&2
+    	fi
+  fi
   
 }
 
