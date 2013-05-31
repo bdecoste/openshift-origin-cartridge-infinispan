@@ -11,6 +11,7 @@ add_classpath ${ISPN_HOME}/modules/memcached/runtime-classpath.txt
 add_classpath ${ISPN_HOME}/modules/hotrod/runtime-classpath.txt
 add_classpath ${ISPN_HOME}/modules/websocket/runtime-classpath.txt
 add_classpath ${ISPN_HOME}/modules/cli-server/runtime-classpath.txt
+add_classpath ${OPENSHIFT_INFINISPAN_DIR}/infinispan/bin/
 
 add_jvm_args $JVM_PARAMS
 add_jvm_args '-Djava.net.preferIPv4Stack=true'

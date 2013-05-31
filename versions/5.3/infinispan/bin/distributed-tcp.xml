@@ -26,7 +26,7 @@
    <global>
       <transport>
          <properties>
-            <property name="configurationFile" value="${env.OPENSHIFT_INFINISPAN_DIR}/infinispan/bin/jgroups-tcp.xml" />
+            <property name="configurationFile" value="jgroups-tcp.xml" />
          </properties>
       </transport>
    </global>
