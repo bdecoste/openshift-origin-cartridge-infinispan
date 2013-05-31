@@ -19,7 +19,7 @@ add_jvm_args '-Djava.net.preferIPv4Stack=true'
 add_jvm_args '-Dcom.sun.management.jmxremote.ssl=false'
 add_jvm_args '-Dcom.sun.management.jmxremote.authenticate=false'
 add_jvm_args -Dcom.sun.management.jmxremote.host=${env.OPENSHIFT_INFINISPAN_IP}
-add_jvm_args -Dcom.sun.management.jmxremote.port=5445
+add_jvm_args -Dcom.sun.management.jmxremote.port=5455
 
 # Workaround for JDK6 NPE: http://bugs.sun.com/view_bug.do?bug_id=6427854
 add_jvm_args '-Dsun.nio.ch.bugLevel=""'
