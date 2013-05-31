@@ -46,18 +46,14 @@ function replace_envs() {
 			$f
 	done
 	
+	if [ -z "$OPENSHIFT_INFINISPAN_CLUSTER" ]; then
+		OPENSHIFT_INFINISPAN_CLUSTER="${OPENSHIFT_INFINISPAN_IP}[7600]"
+	fi
+	
 	for f in ${OPENSHIFT_INFINISPAN_DIR}/infinispan/etc/*.xml
 	do
 		sed -i -e "s/\${env.OPENSHIFT_INFINISPAN_IP}/$OPENSHIFT_INFINISPAN_IP/g" \
-			$f
-	done
-	
-	INFINISPAN_DIR=$(echo "$OPENSHIFT_INFINISPAN_DIR" | sed -e "s@\/@\\\\/@g")
-	
-	for f in ${OPENSHIFT_INFINISPAN_DIR}/infinispan/bin/*
-	do
-		sed -i -e "s/\${env.OPENSHIFT_INFINISPAN_IP}/$OPENSHIFT_INFINISPAN_IP/g" \
-		       -e "s/\${env.OPENSHIFT_INFINISPAN_DIR}/$INFINISPAN_DIR/g" \
+		       -e "s/\${env.OPENSHIFT_INFINISPAN_CLUSTER}/$OPENSHIFT_INFINISPAN_CLUSTER/g" \
 			$f
 	done
 }
