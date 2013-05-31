@@ -11,7 +11,7 @@
 <config xmlns="urn:org:jgroups"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="urn:org:jgroups http://www.jgroups.org/schema/JGroups-3.2.xsd">
-    <TCP bind_addr="${env.OPENSHIFT_INFINISPAN_IP}" bind_port="7600" port_range="10"
+    <TCP bind_addr="${env.OPENSHIFT_INFINISPAN_IP}" bind_port="7600" port_range="0"
          recv_buf_size="20000000"
          send_buf_size="640000"
          loopback="false"
@@ -43,18 +43,13 @@
          oob_thread_pool.queue_enabled="false"
          oob_thread_pool.queue_max_size="100"
          oob_thread_pool.rejection_policy="discard"/>
-
-   <MPING bind_addr="${jgroups.bind_addr:127.0.0.1}" break_on_coord_rsp="true"
-          mcast_addr="${jgroups.mping.mcast_addr:228.2.4.6}"
-          mcast_port="${jgroups.mping.mcast_port:43366}"
-          ip_ttl="${jgroups.udp.ip_ttl:2}"
-          num_initial_members="3" timeout="2000"/>
+         
+   <TCPPING timeout="30000" initial_hosts="${env.OPENSHIFT_INFINSPAN_IP}" port_range="0" num_initial_members="1" />
 
     <MERGE2 max_interval="30000"
             min_interval="10000"/>
 
-    <FD_SOCK/>
-    <FD_ALL interval="2000" timeout="5000" />
+    <FD/>
     <VERIFY_SUSPECT timeout="500"  />
     <BARRIER />
     <pbcast.NAKACK use_mcast_xmit="false"
