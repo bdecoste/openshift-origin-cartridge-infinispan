@@ -63,7 +63,7 @@ Scaling:
   Max: 1
 Group-Overrides:
   - components:
-    - web_proxy
+    - infinispan-5.3
 Endpoints:
   - Private-IP-Name:     IP
     Private-Port-Name:   HTTP_PORT
