@@ -63,7 +63,6 @@ Scaling:
   Max: 1
 Group-Overrides:
   - components:
-    - infinispan-5.3
     - web_proxy
 Endpoints:
   - Private-IP-Name:     IP
