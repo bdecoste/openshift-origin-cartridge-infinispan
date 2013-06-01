@@ -47,10 +47,6 @@ Provides:
   - "infinispan(version) = 5.3"
   - "infinispan(version) >= 5.3"
 Publishes:
-  publish-http-url:
-    Type: "NET_TCP:httpd-proxy-info"
-  publish-gear-endpoint:
-    Type: "NET_TCP:gear-endpoint-info"
   publish-generic-java:
     Type: "ENV:NET_TCP:generic-java"
   publish-infinispan-cluster:
@@ -61,10 +57,6 @@ Subscribes:
 Scaling:
   Min: 1
   Max: 1
-Group-Overrides:
-  - components:
-    - infinispan-5.3
-    - web_proxy
 Endpoints:
   - Private-IP-Name:     IP
     Private-Port-Name:   HTTP_PORT
