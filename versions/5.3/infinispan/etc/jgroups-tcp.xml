@@ -17,7 +17,7 @@
          loopback="false"
          max_bundle_size="64k"
          bundler_type="new"
-         enable_diagnostics="true"
+         enable_diagnostics="false"
          thread_naming_pattern="cl"
          
          defer_client_bind_addr="true"
