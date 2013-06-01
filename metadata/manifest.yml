@@ -11,8 +11,8 @@ Cartridge-Vendor: jboss
 Source-Url: https://github.com/bdecoste/openshift-origin-cartridge-infinispan.git
 Categories:
   - service
+  - database
   - embedded
-  - java
 Website: http://www.jboss.org/infinispan
 Help-Topics:
   "Developer Center": https://www.openshift.com/developers
@@ -60,11 +60,7 @@ Subscribes:
     Type: "NET_TCP:infinispan-cluster-info"
 Scaling:
   Min: 1
-  Max: -1
-Group-Overrides:
-  - components:
-    - jboss-infinispan-5.3
-    - web_proxy
+  Max: 1
 Endpoints:
   - Private-IP-Name:     IP
     Private-Port-Name:   HTTP_PORT
