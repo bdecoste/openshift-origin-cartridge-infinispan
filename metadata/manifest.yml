@@ -8,7 +8,7 @@ License-Url: http://www.apache.org/licenses/LICENSE-2.0.html
 Vendor: Red Hat
 Cartridge-Version: 0.0.1
 Cartridge-Vendor: jboss
-Source-Url: https://github.com/bdecoste/openshift-origin-cartridge-infinispan.git
+Source-Url: http://github.com/bdecoste/openshift-origin-cartridge-infinispan.git
 Categories:
   - service
   - database
