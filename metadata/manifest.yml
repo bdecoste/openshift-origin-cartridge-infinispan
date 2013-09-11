@@ -56,7 +56,7 @@ Subscribes:
     Type: "NET_TCP:infinispan-cluster-info"
 Scaling:
   Min: 1
-  Max: 1
+  Max: 10
 Endpoints:
   - Private-IP-Name:     IP
     Private-Port-Name:   HTTP_PORT
